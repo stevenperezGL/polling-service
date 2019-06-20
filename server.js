@@ -1,15 +1,20 @@
 const app = require('express')();
-var http = require('http').createServer(app);
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
 const port = process.env.PORT || 4000;
 
-// app.listen(port, () => {
-//     console.log(`Server running in port ${port}`);
-// });
+initialize();
 
 app.get('/', function(req, res){
     res.send('<h1>Hello world</h1>');
 });
 
-http.listen(port, function(){
-    console.log(`Server running in port ${port}`);
-});
+function initialize(){
+    listenConnections();
+}
+
+function listenConnections(){
+    server.listen(port, function(){
+        console.log(`Server listening in port ${port}`);
+    });
+}
