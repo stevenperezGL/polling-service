@@ -1,7 +1,7 @@
 const app = require('express')();
 const server = require('http').createServer(app);
-const cors = require('cors')
-const io = require('socket.io')(server);
+const cors = require('cors');
+const io = require('socket.io')(server, { origins: '*:*'});
 const port = process.env.PORT || 4000;
 const { pollEvents} = require('./events/poll-events');
 const { roomEvents} = require('./events/room-events');

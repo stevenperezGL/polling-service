@@ -27,6 +27,7 @@ const roomEvents = function(socket){
     function quitRoom(){
         socket.on('quit-room', function(secretKey){
             socket.leave(secretKey);
+            socket.emit('quit-room', secretKey);
         })
     }
 
