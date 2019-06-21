@@ -40,6 +40,9 @@ function listenConnections(){
     });
 }
 
+/**
+ * events
+ */
 function connectToSocket(){
     io.on('connection', function(socket){
         socket.emit('connection', 'Socket Connected');
