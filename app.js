@@ -7,7 +7,7 @@ const dbName = 'RealTimePolling';
 
 const client = new MongoClient(url, { useNewUrlParser: true });
 
-async function getOptions() {
+const getOptions = async function getOptions() {
 	try {
 		await client.connect();
 		const db = client.db(dbName);
@@ -23,10 +23,12 @@ async function getOptions() {
         client.close();
 		return err.stack;
 	}
-}
+};
 
 getOptions().then(solution => console.log('solution', solution));
 
 app.listen(port, () => {
 	console.log(`App running in port ${port}`);
-})
+});
+
+module.exports.getOptions = getOptions;

@@ -4,6 +4,7 @@ const io = require('socket.io')(server);
 const port = process.env.PORT || 4000;
 const { pollEvents} = require('./events/poll-events');
 const { roomEvents} = require('./events/room-events');
+const { optionsEvents } = require('./events/options-events');
 
 initialize();
 
@@ -33,6 +34,7 @@ function connectToSocket(){
         pollEvents(socket).submitVote();
         roomEvents(socket).createRoom();
         roomEvents(socket).joinRoom();
+        optionsEvents(socket).getOptions();
     });
 }
 
