@@ -35,7 +35,6 @@ const roomEvents = function(socket, io){
             const count = io.sockets.adapter.rooms[secretKey].length;
             socket.leave(secretKey);
             socket.broadcast.emit(`quit-room-${secretKey}`, {secretKey: secretKey, connectedUsers: count});
-            socket.emit(`quit-room-${secretKey}`, {secretKey: secretKey, connectedUsers: count});
         })
     }
 
