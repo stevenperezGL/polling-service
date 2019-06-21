@@ -20,7 +20,7 @@ const roomEvents = function(socket, io){
 
             socket.join(secretKey);
             const count = io.sockets.adapter.rooms[secretKey].length;
-            socket.broadcast.emit('join-room', { roomId: secretKey, userId: userId, connectedUsers: count});
+            socket.broadcast.emit('join-room', JSON.stringify({ roomId: secretKey, userId: userId, connectedUsers: count}));
         });
     }
 
