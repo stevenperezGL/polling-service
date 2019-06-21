@@ -7,7 +7,15 @@ const { pollEvents} = require('./events/poll-events');
 const { roomEvents} = require('./events/room-events');
 const { optionsEvents } = require('./events/options-events');
 
-app.use(cors());
+const corsOptions = {
+    allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'X-Access-Token'],
+    credentials: true,
+    methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
+    origin: '*',
+    preflightContinue: false
+};
+
+app.use('*', cors(corsOptions));
 
 app.all('*', function(req, res, next) {
     var origin = req.get('origin');
@@ -16,8 +24,6 @@ app.all('*', function(req, res, next) {
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     next();
 });
-
-server.use(cors());
 
 app.get('/', function(req, res){
     res.send('<h1>Hello world</h1>');
