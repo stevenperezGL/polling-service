@@ -26,7 +26,8 @@ function listenConnections(){
 
 function connectToSocket(){
     io.on('connection', function(socket){
-        console.log('a user connected');
+        socket.emit('connection', 'Socket Connected');
+
         socket.on('disconnect', function(){
             console.log('user disconnected');
         });
