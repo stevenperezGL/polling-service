@@ -2,7 +2,7 @@ const { getOptions } = require('../app');
 
 const optionsEvents = function(socket){
 
-    function getOptions(){
+    function getOptionsFromMongo(){
         socket.on('get-options', function (secretKey) {
             getOptions().then(response =>
                 socket.emit(`get-options-${secretKey}`, JSON.stringify(response)))
@@ -13,7 +13,7 @@ const optionsEvents = function(socket){
     }
 
     return {
-        getOptions
+        getOptions: getOptionsFromMongo
     }
 };
 
