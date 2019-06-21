@@ -21,6 +21,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "http": "0.0.0",
+    "mongodb": "^3.2.7",
     "socket.io": "^2.2.0"
   },
   "engines": {
