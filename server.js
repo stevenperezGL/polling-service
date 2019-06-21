@@ -34,6 +34,7 @@ function connectToSocket(){
         pollEvents(socket).submitVote();
         roomEvents(socket).createRoom();
         roomEvents(socket).joinRoom();
+        roomEvents(socket).quitRoom();
         optionsEvents(socket).getOptions();
     });
 }

@@ -24,9 +24,16 @@ const roomEvents = function(socket){
         });
     }
 
+    function quitRoom(){
+        socket.on('quit-room', function(secretKey){
+            socket.leave(secretKey);
+        })
+    }
+
     return {
         createRoom,
-        joinRoom
+        joinRoom,
+        quitRoom
     }
 };
 
