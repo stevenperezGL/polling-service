@@ -12,11 +12,12 @@ const pollEvents = function(socket){
 
     function submitVote() {
         /**
-         * The vote Information contains: the selected option, the secret key and the user id.
+         * The vote Information contains: the selected option, the secret key.
          */
         socket.on('submit-vote', function (voteInformation) {
             const {secretKey} = JSON.parse(voteInformation);
             socket.broadcast.emit(`submit-vote-${secretKey}`, voteInformation);
+            socket.emit(`submit-vote-${secretKey}`, voteInformation);
         });
     }
 

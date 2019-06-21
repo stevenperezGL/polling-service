@@ -11,17 +11,18 @@ const roomEvents = function(socket, io){
     }
 
     /**
-     * The join information contains the user id and the secret key.
+     * The join information contains the secret key.
      */
     function joinRoom(){
         socket.on('join-room', function(joinInformation){
             const info = JSON.parse(joinInformation);
-            const {secretKey, userId}= info;
+            const {secretKey}= info;
 
             socket.join(secretKey);
             try{
                 const count = io.sockets.adapter.rooms[secretKey].length;
-                socket.broadcast.emit(`join-room-${secretKey}`, JSON.stringify({ roomId: secretKey, userId: userId, connectedUsers: count}));
+                socket.broadcast.emit(`join-room-${secretKey}`, JSON.stringify({ roomId: secretKey, connectedUsers: count}));
+                socket.emit(`join-room-${secretKey}`, JSON.stringify({ roomId: secretKey, connectedUsers: count}));
             }
             catch (e) {
                 socket.broadcast.emit(`join-room-${secretKey}`, JSON.stringify(e));
@@ -31,8 +32,10 @@ const roomEvents = function(socket, io){
 
     function quitRoom(){
         socket.on('quit-room', function(secretKey){
+            const count = io.sockets.adapter.rooms[secretKey].length;
             socket.leave(secretKey);
-            socket.emit(`quit-room-${secretKey}`, secretKey);
+            socket.broadcast.emit(`quit-room-${secretKey}`, {secretKey: secretKey, connectedUsers: count});
+            socket.emit(`quit-room-${secretKey}`, {secretKey: secretKey, connectedUsers: count});
         })
     }
 
