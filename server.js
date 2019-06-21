@@ -9,6 +9,8 @@ const { optionsEvents } = require('./events/options-events');
 
 app.use(cors());
 
+server.use(cors());
+
 app.get('/', function(req, res){
     res.send('<h1>Hello world</h1>');
 });
