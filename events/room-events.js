@@ -19,8 +19,13 @@ const roomEvents = function(socket, io){
             const {secretKey, userId}= info;
 
             socket.join(secretKey);
-            const count = io.sockets.adapter.rooms[secretKey].length;
-            socket.broadcast.emit('join-room', JSON.stringify({ roomId: secretKey, userId: userId, connectedUsers: count}));
+            try{
+                const count = io.sockets.adapter.rooms[secretKey].length;
+                socket.broadcast.emit('join-room', JSON.stringify({ roomId: secretKey, userId: userId, connectedUsers: count}));
+            }
+            catch (e) {
+                socket.broadcast.emit('join-room', JSON.stringify(e));
+            }
         });
     }
 
