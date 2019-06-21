@@ -19,11 +19,12 @@
   },
   "homepage": "https://github.com/stevenperezGL/polling-service#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "http": "0.0.0",
+    "mongodb": "^3.2.7",
     "socket.io": "^2.2.0",
-    "uuid": "^3.3.2",
-    "mongodb": "^3.2.7"
+    "uuid": "^3.3.2"
   },
   "engines": {
     "node": "10.x"

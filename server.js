@@ -1,12 +1,13 @@
 const app = require('express')();
 const server = require('http').createServer(app);
+const cors = require('cors')
 const io = require('socket.io')(server);
 const port = process.env.PORT || 4000;
 const { pollEvents} = require('./events/poll-events');
 const { roomEvents} = require('./events/room-events');
 const { optionsEvents } = require('./events/options-events');
 
-initialize();
+app.use(cors());
 
 app.get('/', function(req, res){
     res.send('<h1>Hello world</h1>');
@@ -38,4 +39,6 @@ function connectToSocket(){
         optionsEvents(socket).getOptions();
     });
 }
+
+initialize();
 
