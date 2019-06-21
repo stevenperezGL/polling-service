@@ -1,7 +1,9 @@
 const app = require('express')();
-var server = require('http').createServer(app);
-var io = require('socket.io')(server);
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
 const port = process.env.PORT || 4000;
+const { pollEvents} = require('./events/poll-events');
+const { roomEvents} = require('./events/room-events');
 
 initialize();
 
@@ -11,6 +13,7 @@ app.get('/', function(req, res){
 
 function initialize(){
     listenConnections();
+    connectToSocket();
 }
 
 function listenConnections(){
@@ -18,3 +21,18 @@ function listenConnections(){
         console.log(`Server listening in port ${port}`);
     });
 }
+
+function connectToSocket(){
+    io.on('connection', function(socket){
+        console.log('a user connected');
+        socket.on('disconnect', function(){
+            console.log('user disconnected');
+        });
+
+        pollEvents(socket).startPoll();
+        pollEvents(socket).submitVote();
+        roomEvents(socket).createRoom();
+        roomEvents(socket).joinRoom();
+    });
+}
+
