@@ -21,10 +21,10 @@ const roomEvents = function(socket, io){
             socket.join(secretKey);
             try{
                 const count = io.sockets.adapter.rooms[secretKey].length;
-                socket.broadcast.emit('join-room', JSON.stringify({ roomId: secretKey, userId: userId, connectedUsers: count}));
+                socket.broadcast.emit(`join-room-${secretKey}`, JSON.stringify({ roomId: secretKey, userId: userId, connectedUsers: count}));
             }
             catch (e) {
-                socket.broadcast.emit('join-room', JSON.stringify(e));
+                socket.broadcast.emit(`join-room-${secretKey}`, JSON.stringify(e));
             }
         });
     }
@@ -32,7 +32,7 @@ const roomEvents = function(socket, io){
     function quitRoom(){
         socket.on('quit-room', function(secretKey){
             socket.leave(secretKey);
-            socket.emit('quit-room', secretKey);
+            socket.emit(`quit-room-${secretKey}`, secretKey);
         })
     }
 
