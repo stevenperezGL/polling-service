@@ -1,6 +1,6 @@
 const uuidv1 = require('uuid/v1');
 
-const roomEvents = function(socket){
+const roomEvents = function(socket, io){
 
     function createRoom(){
         socket.on('create-room', function(){

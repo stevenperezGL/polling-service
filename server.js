@@ -50,9 +50,9 @@ function connectToSocket(){
 
         pollEvents(socket).startPoll();
         pollEvents(socket).submitVote();
-        roomEvents(socket).createRoom();
-        roomEvents(socket).joinRoom();
-        roomEvents(socket).quitRoom();
+        roomEvents(socket, io).createRoom();
+        roomEvents(socket, io).joinRoom();
+        roomEvents(socket, io).quitRoom();
         optionsEvents(socket).getOptions();
     });
 }
